@@ -196,26 +196,20 @@ function renderUnitBlock(fillId, pctId, listId, unit) {
   list.innerHTML = '';
   lessons.forEach((lesson, idx) => {
     const isDone   = !!state.progress[lesson.id];
-    const isLocked = idx > 0 && !state.progress[lessons[idx - 1]?.id];
     const btn = document.createElement('button');
-    btn.className = 'lesson-item' + (isDone ? ' done' : '') + (isLocked ? ' locked' : '');
+    btn.className = 'lesson-item' + (isDone ? ' done' : '');
     btn.innerHTML = `
-      <div class="li-num">${idx + 1}</div>
+      <div class="li-num">${isDone ? '✓' : idx + 1}</div>
       <div class="li-body">
         <div class="li-title">${lesson.title}</div>
-        <div class="li-status">${isDone ? '완료' : isLocked ? '이전 레슨 완료 후 열림' : '학습하기'}</div>
+        <div class="li-status">${isDone ? '완료' : '학습하기'}</div>
       </div>
-      <div class="li-arrow">${isDone ? '✓' : isLocked ? '' : '→'}</div>
+      <div class="li-arrow">${isDone ? '' : '→'}</div>
     `;
-    if (!isLocked) {
-      btn.addEventListener('click', () => {
-        LESSONS = lessons; // 현재 유닛 전환
-        startLesson(idx);
-      });
-    } else {
-      btn.style.opacity = '.45';
-      btn.style.cursor = 'default';
-    }
+    btn.addEventListener('click', () => {
+      LESSONS = lessons;
+      startLesson(idx);
+    });
     list.appendChild(btn);
   });
 }
@@ -303,10 +297,9 @@ function renderProgress() {
       const pct  = Math.round(done / lessons.length * 100);
       const lessonHTML = lessons.map((lesson, idx) => {
         const isDone   = !!state.progress[lesson.id];
-        const isLocked = idx > 0 && !state.progress[lessons[idx - 1]?.id];
-        const iconClass = isDone ? 'done' : isLocked ? 'locked' : 'ready';
-        const iconText  = isDone ? '✓'   : isLocked ? '🔒'    : `${idx + 1}`;
-        const statusText = isDone ? '완료' : isLocked ? '잠금' : '학습 가능';
+        const iconClass = isDone ? 'done' : 'ready';
+        const iconText  = isDone ? '✓' : `${idx + 1}`;
+        const statusText = isDone ? '완료' : '학습 가능';
         return `
           <div class="prog-lesson-item">
             <div class="pli-icon ${iconClass}">${iconText}</div>
