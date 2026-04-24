@@ -252,6 +252,89 @@ function renderHome() {
 }
 
 // ══════════════════════════════════════════════════════════════
+// 진도 화면
+// ══════════════════════════════════════════════════════════════
+function renderProgress() {
+  const allUnits = [
+    { unit: UNIT1, tag: 'UNIT 1' },
+    { unit: UNIT2, tag: 'UNIT 2' },
+    { unit: UNIT3, tag: 'UNIT 3' },
+    { unit: UNIT4, tag: 'UNIT 4' },
+    { unit: UNIT5, tag: 'UNIT 5' },
+    { unit: UNIT6, tag: 'UNIT 6' },
+  ];
+
+  // 전체 통계
+  const totalLessons = allUnits.reduce((s, u) => s + u.unit.lessons.length, 0);
+  const doneLessons  = allUnits.reduce((s, u) =>
+    s + u.unit.lessons.filter(l => state.progress[l.id]).length, 0);
+  const totalPct = Math.round(doneLessons / totalLessons * 100);
+
+  // SVG 원형 게이지 계산 (r=30, 둘레 ≈ 188.5)
+  const R = 30, C = 2 * Math.PI * R;
+  const offset = C - (totalPct / 100) * C;
+
+  const scroll = $('prog-scroll');
+  scroll.innerHTML = `
+    <div class="prog-summary">
+      <div class="prog-ring-wrap">
+        <svg class="prog-ring" viewBox="0 0 76 76" width="76" height="76">
+          <circle class="prog-ring-bg"   cx="38" cy="38" r="${R}" fill="none"/>
+          <circle class="prog-ring-fill" cx="38" cy="38" r="${R}" fill="none"
+            stroke-dasharray="${C.toFixed(1)}"
+            stroke-dashoffset="${offset.toFixed(1)}"/>
+        </svg>
+        <div class="prog-ring-text">
+          <div class="prog-ring-num">${totalPct}%</div>
+          <div class="prog-ring-label">완료</div>
+        </div>
+      </div>
+      <div class="prog-summary-info">
+        <div class="prog-sum-title">전체 진도</div>
+        <div class="prog-sum-score">${doneLessons} / ${totalLessons} 레슨</div>
+        <div class="prog-sum-bar">
+          <div class="prog-sum-fill" style="width:${totalPct}%"></div>
+        </div>
+      </div>
+    </div>
+    ${allUnits.map(({ unit, tag }) => {
+      const lessons = unit.lessons;
+      const done = lessons.filter(l => state.progress[l.id]).length;
+      const pct  = Math.round(done / lessons.length * 100);
+      const lessonHTML = lessons.map((lesson, idx) => {
+        const isDone   = !!state.progress[lesson.id];
+        const isLocked = idx > 0 && !state.progress[lessons[idx - 1]?.id];
+        const iconClass = isDone ? 'done' : isLocked ? 'locked' : 'ready';
+        const iconText  = isDone ? '✓'   : isLocked ? '🔒'    : `${idx + 1}`;
+        const statusText = isDone ? '완료' : isLocked ? '잠금' : '학습 가능';
+        return `
+          <div class="prog-lesson-item">
+            <div class="pli-icon ${iconClass}">${iconText}</div>
+            <div class="pli-title">${lesson.title}</div>
+            <div class="pli-status ${isDone ? 'done' : ''}">${statusText}</div>
+          </div>`;
+      }).join('');
+      return `
+        <div class="prog-unit-card">
+          <div class="prog-unit-head">
+            <div class="prog-unit-left">
+              <div class="prog-unit-tag">${tag}</div>
+              <div class="prog-unit-name">${unit.title}</div>
+            </div>
+            <div class="prog-unit-right">
+              <div class="prog-unit-pct">${pct}%</div>
+              <div class="prog-unit-bar">
+                <div class="prog-unit-bar-fill" style="width:${pct}%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="prog-lesson-list">${lessonHTML}</div>
+        </div>`;
+    }).join('')}
+  `;
+}
+
+// ══════════════════════════════════════════════════════════════
 // 레슨 시작 → 어휘 화면
 // ══════════════════════════════════════════════════════════════
 function startLesson(idx) {
@@ -326,9 +409,13 @@ function renderStep() {
   // 진도바
   $('sfb-fill').style.width = ((idx + 1) / total * 100) + '%';
 
-  // 마지막 스텝에서 버튼 표시
+  // 마지막 스텝에서 '연습 문제로' 버튼 표시
   const btn = $('step-summary-btn');
   btn.style.display = isLast ? 'flex' : 'none';
+
+  // 이전 버튼: 첫 스텝이면 숨김
+  const prevBtn = $('step-prev-btn');
+  prevBtn.style.visibility = idx === 0 ? 'hidden' : 'visible';
 }
 
 function advanceStep() {
@@ -646,8 +733,8 @@ function bindEvents() {
         renderHome();
         showScreen('screen-home');
       } else if (btn.dataset.screen === 'progress') {
-        renderHome();
-        showScreen('screen-home');
+        renderProgress();
+        showScreen('screen-progress');
       }
     });
   });
@@ -669,12 +756,19 @@ function bindEvents() {
 
   // ── 스텝 ──
   $('step-area').addEventListener('click', e => {
-    if (e.target.id === 'step-summary-btn') return;
+    if (e.target.closest('#step-summary-btn') || e.target.closest('#step-prev-btn')) return;
     advanceStep();
   });
   $('step-summary-btn').addEventListener('click', e => {
     e.stopPropagation();
     startDissect();
+  });
+  $('step-prev-btn').addEventListener('click', e => {
+    e.stopPropagation();
+    if (state.stepIdx > 0) {
+      state.stepIdx--;
+      renderStep();
+    }
   });
   $('steps-back').addEventListener('click', () => { renderHome(); showScreen('screen-home'); });
   document.addEventListener('keydown', e => {

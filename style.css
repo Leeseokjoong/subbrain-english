@@ -651,6 +651,17 @@ body {
   flex-direction: column;
   gap: 10px;
 }
+.sfb-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.sfb-prev-btn {
+  font-size: .82rem;
+  padding: 8px 14px;
+  flex-shrink: 0;
+}
 .sfb-progress {
   height: 4px;
   background: var(--border);
@@ -1086,6 +1097,208 @@ body {
   font-weight: 500;
   word-break: keep-all;
 }
+
+/* ═══════════════════════════════════════════
+   진도 화면
+═══════════════════════════════════════════ */
+#screen-progress {
+  background: var(--bg);
+}
+.prog-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 18px 16px 12px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+}
+.prog-header-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.prog-scroll {
+  padding: 16px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 전체 요약 카드 */
+.prog-summary {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.prog-ring-wrap {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+}
+.prog-ring {
+  width: 76px;
+  height: 76px;
+  transform: rotate(-90deg);
+}
+.prog-ring-bg {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 6;
+}
+.prog-ring-fill {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition: stroke-dashoffset .6s ease;
+}
+.prog-ring-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+}
+.prog-ring-num {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+.prog-ring-label {
+  font-size: .6rem;
+  color: var(--text-hint);
+}
+.prog-summary-info {
+  flex: 1;
+}
+.prog-sum-title {
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--text-hint);
+  letter-spacing: .5px;
+  margin-bottom: 4px;
+}
+.prog-sum-score {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.prog-sum-bar {
+  height: 6px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.prog-sum-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 99px;
+  transition: width .6s ease;
+}
+
+/* 유닛 카드 */
+.prog-unit-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.prog-unit-head {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.prog-unit-left {}
+.prog-unit-tag {
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--primary);
+  margin-bottom: 2px;
+}
+.prog-unit-name {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.prog-unit-right {
+  text-align: right;
+}
+.prog-unit-pct {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+.prog-unit-bar {
+  width: 70px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-top: 4px;
+  margin-left: auto;
+}
+.prog-unit-bar-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 99px;
+}
+
+/* 레슨 목록 */
+.prog-lesson-list {
+  padding: 4px 0;
+}
+.prog-lesson-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.prog-lesson-item:last-child { border-bottom: none; }
+.pli-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.pli-icon.done {
+  background: var(--green-light);
+  color: var(--green);
+}
+.pli-icon.locked {
+  background: var(--border);
+  color: var(--text-hint);
+}
+.pli-icon.ready {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+.pli-title {
+  flex: 1;
+  font-size: .88rem;
+  color: var(--text);
+}
+.pli-status {
+  font-size: .72rem;
+  color: var(--text-hint);
+}
+.pli-status.done { color: var(--green); }
 
 /* ═══════════════════════════════════════════
    반응형 — 태블릿/데스크탑 (border만 추가)

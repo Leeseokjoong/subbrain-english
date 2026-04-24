@@ -158,9 +158,14 @@
         <div class="sfb-progress">
           <div class="sfb-fill" id="sfb-fill"></div>
         </div>
-        <button class="btn-ghost step-summary-btn" id="step-summary-btn" style="display:none">
-          연습 문제로 →
-        </button>
+        <div class="sfb-nav">
+          <button class="btn-ghost sfb-prev-btn" id="step-prev-btn" style="visibility:hidden">
+            ← 이전
+          </button>
+          <button class="btn-ghost step-summary-btn" id="step-summary-btn" style="display:none">
+            연습 문제로 →
+          </button>
+        </div>
       </div>
     </div>
 
@@ -220,6 +225,16 @@
       <button class="btn-primary full-btn" id="quiz-next-btn" style="display:none">
         다음 문제 →
       </button>
+    </div>
+
+    <!-- ── 진도 화면 ── -->
+    <div id="screen-progress" class="screen">
+      <div class="prog-header">
+        <div class="prog-header-title">내 진도</div>
+      </div>
+      <div class="prog-scroll" id="prog-scroll">
+        <!-- renderProgress()로 채움 -->
+      </div>
     </div>
 
     <!-- ── 에필로그 화면 ── -->
