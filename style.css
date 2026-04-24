@@ -1098,6 +1098,153 @@ body {
 }
 
 /* ═══════════════════════════════════════════
+   수정 요청 플로팅 버튼 + 모달
+═══════════════════════════════════════════ */
+.fb-float-btn {
+  position: fixed;
+  bottom: calc(var(--tab-h) + 16px);
+  right: calc(50% - 240px + 16px);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,.12);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .15s;
+}
+.fb-float-btn:active { transform: scale(.92); }
+@media (max-width: 520px) {
+  .fb-float-btn { right: 16px; }
+}
+
+.fb-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.fb-modal-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+}
+.fb-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: var(--card);
+  border-radius: 20px 20px 0 0;
+  padding: 20px 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.fb-modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.fb-modal-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.fb-modal-lesson {
+  font-size: .78rem;
+  color: var(--text-hint);
+  margin-top: 2px;
+}
+.fb-close {
+  border: none; background: none;
+  font-size: 1.1rem; cursor: pointer;
+  color: var(--text-hint);
+  padding: 4px;
+}
+.fb-textarea {
+  width: 100%;
+  min-height: 120px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: .92rem;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--bg);
+  resize: none;
+  outline: none;
+  line-height: 1.7;
+}
+.fb-textarea:focus { border-color: var(--primary); }
+
+/* 진도 탭 내 피드백 목록 */
+.fb-list-section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.fb-list-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.fb-list-head-title {
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.fb-copy-btn {
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-light);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.fb-empty {
+  padding: 20px 16px;
+  font-size: .85rem;
+  color: var(--text-hint);
+  text-align: center;
+}
+.fb-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.fb-item:last-child { border-bottom: none; }
+.fb-item-meta {
+  font-size: .72rem;
+  color: var(--text-hint);
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+.fb-item-text {
+  font-size: .85rem;
+  color: var(--text);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+.fb-item-del {
+  border: none; background: none;
+  color: var(--text-hint);
+  font-size: .78rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* ═══════════════════════════════════════════
    진도 화면
 ═══════════════════════════════════════════ */
 #screen-progress {

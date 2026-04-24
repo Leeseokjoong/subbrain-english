@@ -170,6 +170,42 @@ function saveProgress() {
   localStorage.setItem('sb_progress', JSON.stringify(state.progress));
 }
 
+// ── 수정 요청 피드백 ──
+const LESSON_SCREENS = ['screen-vocab','screen-steps','screen-dissect','screen-skeleton','screen-quiz'];
+
+function loadFeedback() {
+  try { return JSON.parse(localStorage.getItem('sb_feedback') || '[]'); }
+  catch(e) { return []; }
+}
+function saveFeedback(list) {
+  localStorage.setItem('sb_feedback', JSON.stringify(list));
+}
+function openFeedback() {
+  const lesson = LESSONS[state.lessonIdx];
+  $('fb-modal-lesson').textContent = lesson ? lesson.title : '';
+  $('fb-textarea').value = '';
+  $('fb-modal').style.display = 'flex';
+  setTimeout(() => $('fb-textarea').focus(), 100);
+}
+function closeFeedback() {
+  $('fb-modal').style.display = 'none';
+}
+function saveFeedbackItem() {
+  const text = $('fb-textarea').value.trim();
+  if (!text) return;
+  const lesson = LESSONS[state.lessonIdx];
+  const list = loadFeedback();
+  list.push({
+    id: Date.now(),
+    lessonId: lesson?.id || '',
+    lessonTitle: lesson?.title || '',
+    text,
+    date: new Date().toLocaleDateString('ko-KR')
+  });
+  saveFeedback(list);
+  closeFeedback();
+}
+
 // ── 화면 전환 ──
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -178,6 +214,8 @@ function showScreen(id) {
   document.querySelectorAll('.tab-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.screen === id.replace('screen-',''));
   });
+  // 피드백 버튼: 레슨 화면에서만 표시
+  $('fb-float-btn').style.display = LESSON_SCREENS.includes(id) ? 'flex' : 'none';
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -324,7 +362,53 @@ function renderProgress() {
           <div class="prog-lesson-list">${lessonHTML}</div>
         </div>`;
     }).join('')}
+
+    ${renderFeedbackList()}
   `;
+}
+
+function renderFeedbackList() {
+  const list = loadFeedback();
+  const itemsHTML = list.length === 0
+    ? `<div class="fb-empty">아직 수정 요청이 없습니다.</div>`
+    : list.map(item => `
+        <div class="fb-item" data-fbid="${item.id}">
+          <div class="fb-item-meta">
+            <span>${item.lessonTitle || '레슨 미지정'}</span>
+            <span>
+              ${item.date}
+              <button class="fb-item-del" onclick="deleteFeedback(${item.id})">삭제</button>
+            </span>
+          </div>
+          <div class="fb-item-text">${item.text}</div>
+        </div>`).join('');
+
+  return `
+    <div class="fb-list-section">
+      <div class="fb-list-head">
+        <div class="fb-list-head-title">✏️ 수정 요청 ${list.length}건</div>
+        ${list.length > 0 ? `<button class="fb-copy-btn" onclick="copyAllFeedback()">전체 복사</button>` : ''}
+      </div>
+      ${itemsHTML}
+    </div>`;
+}
+
+function deleteFeedback(id) {
+  const list = loadFeedback().filter(f => f.id !== id);
+  saveFeedback(list);
+  renderProgress();
+  showScreen('screen-progress');
+}
+
+function copyAllFeedback() {
+  const list = loadFeedback();
+  const text = list.map(f =>
+    `[${f.lessonTitle}] (${f.date})\n${f.text}`
+  ).join('\n\n---\n\n');
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.fb-copy-btn');
+    if (btn) { btn.textContent = '복사됨 ✓'; setTimeout(() => btn.textContent = '전체 복사', 1500); }
+  });
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -718,6 +802,12 @@ function showResult() {
 // 이벤트 바인딩
 // ══════════════════════════════════════════════════════════════
 function bindEvents() {
+
+  // ── 수정 요청 피드백 ──
+  $('fb-float-btn').addEventListener('click', openFeedback);
+  $('fb-close').addEventListener('click', closeFeedback);
+  $('fb-modal-bg').addEventListener('click', closeFeedback);
+  $('fb-save-btn').addEventListener('click', saveFeedbackItem);
 
   // ── 탭바 ──
   document.querySelectorAll('.tab-btn').forEach(btn => {
