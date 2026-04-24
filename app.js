@@ -855,6 +855,8 @@ function bindEvents() {
   });
   $('steps-back').addEventListener('click', () => { renderHome(); showScreen('screen-home'); });
   document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
+    if ($('fb-modal').style.display !== 'none') return;
     if (e.code === 'Space' && $('screen-steps').classList.contains('active')) {
       e.preventDefault();
       advanceStep();
