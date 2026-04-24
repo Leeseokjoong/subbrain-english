@@ -21,6 +21,8 @@ const UNIT3 = {
       ],
 
       steps: [
+        `준동사(準動詞) — 한자 그대로 풀면 "동사에 준하는 것"입니다.<br>동사에서 태어났지만 동사 자리가 아닌 곳에서 일하는 말들이에요.<br><br>그런데 우리는 이렇게 기억합시다.<br><br><strong>화장</strong> — 형용사·부사처럼 문장에 덧붙이는 장식. 지우면 본체는 그대로.<br><strong>분장</strong> — 동사가 가면을 쓰고 형용사로 변신. 속은 동사, 겉은 형용사.<br><strong>성형수술</strong> — 동사가 완전히 명사로 재탄생. to swim = "수영하는 것"<br><br>이 레슨은 <strong>성형수술과 분장</strong> 이야기입니다.`,
+
         `동사는 원래 동사 자리에 앉습니다.<br>그런데 동사가 <strong>명사 자리</strong>에 앉고 싶다면?<br><br>한국어에서는 자연스럽습니다.<br><br>"<strong>달리는 것</strong>이 좋다." → 달리다(동사) → 달리는 것(명사)<br>"<strong>먹기</strong>가 싫다." → 먹다(동사) → 먹기(명사)<br><br>영어도 같은 방법이 있습니다.`,
 
         `방법 1 — <strong>to + 동사원형</strong> : to부정사<br><br>to swim = 수영하는 것 / 수영하기<br>to eat = 먹는 것 / 먹기<br>to become = 되는 것<br><br><div class="step-sentence"><mark class="s">To learn</mark> <mark class="v">takes</mark> <mark class="o">time</mark>.</div>배우는 것은 시간이 걸린다. → "To learn"이 주어 자리<br><br><div class="step-sentence">I <mark class="v">want</mark> <mark class="o">to go</mark>.</div>나는 원한다 가는 것을. → "to go"가 목적어 자리`,
@@ -260,7 +262,7 @@ const UNIT3 = {
       ],
 
       steps: [
-        `동사가 형용사로 변신하는 방법이 있습니다.<br><br>run(달리다) → <strong>running</strong>(달리는)<br>break(부수다) → <strong>broken</strong>(부서진)<br><br>이렇게 동사에서 태어난 형용사를<br><strong>분사</strong>라고 합니다.<br><br>태어난 곳이 동사라서<br>동사의 성질을 일부 가지고 있어요.`,
+        `분사(分詞) — 한자로 풀면 "동사에서 나뉘어 나온 말"입니다.<br>동사가 형용사 자리로 건너간 것이에요.<br><br>우리는 이렇게 기억합시다.<br><br><strong>동사가 분장을 하면 — 분사가 됩니다.</strong><br><br>run(달리다) → <strong>running</strong>(달리는)<br>break(부수다) → <strong>broken</strong>(부서진)<br><br>분장한 배우처럼, 겉모습은 형용사지만<br>속에는 동사의 DNA가 살아있어요.<br>그래서 목적어나 부사를 끌고 다닐 수 있습니다.`,
 
         `분사는 두 종류입니다.<br><br><strong>현재분사 — 동사원형 + -ing</strong><br>능동·진행의 의미: "~하는, ~하고 있는"<br><br><strong>과거분사 — 동사원형 + -ed (또는 불규칙)</strong><br>수동·완료의 의미: "~된, ~해진, ~당한"<br><br>running = 달리는 (능동)<br>broken = 부서진 (수동, 부서짐을 당한)<br>written = 쓰여진 (수동)<br>fallen = 떨어진 (완료)`,
 
