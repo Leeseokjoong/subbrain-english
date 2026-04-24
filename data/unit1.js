@@ -14,10 +14,19 @@ const UNIT1 = {
       done: false,
 
       vocab: [
-        { word: 'beautiful', meaning: '아름다운 (형용사)', example: '아름다운 꽃이 핀다.' },
-        { word: 'quickly',   meaning: '빠르게 (부사)',    example: '그는 달린다 빠르게.' },
-        { word: 'and',       meaning: '그리고 (접속사)',  example: '나는 읽는다 그리고 쓴다.' },
-        { word: 'in',        meaning: '~안에 (전치사)',   example: '고양이가 잔다 상자 안에.' },
+        { word: 'student',   meaning: '학생 (명사)',        example: 'Tom is a diligent student.' },
+        { word: 'happiness', meaning: '행복 (명사)',        example: 'Money cannot buy happiness.' },
+        { word: 'run',       meaning: '달리다 (동사)',      example: 'He runs in the park every morning.' },
+        { word: 'become',    meaning: '되다 (동사)',        example: 'She became a great teacher.' },
+        { word: 'seem',      meaning: '~처럼 보이다 (동사)', example: 'He seems tired today.' },
+        { word: 'beautiful', meaning: '아름다운 (형용사)',  example: 'A beautiful flower bloomed in the garden.' },
+        { word: 'cold',      meaning: '차가운 (형용사)',    example: 'The cold wind made me shiver.' },
+        { word: 'quickly',   meaning: '빠르게 (부사)',      example: 'She speaks quickly and clearly.' },
+        { word: 'always',    meaning: '항상 (부사)',        example: 'She always arrives on time.' },
+        { word: 'never',     meaning: '절대 ~ 않다 (부사)', example: 'He never gives up.' },
+        { word: 'in',        meaning: '~안에 (전치사)',     example: 'The cat is sleeping in the box.' },
+        { word: 'but',       meaning: '하지만 (접속사)',    example: 'I tried hard, but I failed.' },
+        { word: 'because',   meaning: '왜냐하면 (접속사)',  example: 'I stayed home because it was raining.' },
       ],
 
       steps: [
