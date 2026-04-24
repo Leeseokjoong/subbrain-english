@@ -1098,6 +1098,19 @@ body {
   word-break: keep-all;
 }
 
+/* ── 스텝 한/영 병렬 번역 ── */
+.step-en {
+  display: block;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: .84rem;
+  color: var(--text-sub);
+  font-style: italic;
+  line-height: 1.9;
+  word-break: keep-all;
+}
+
 /* ═══════════════════════════════════════════
    진도 화면
 ═══════════════════════════════════════════ */
