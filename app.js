@@ -463,10 +463,33 @@ function renderSkeleton() {
   const sentenceEl = $('skeleton-sentence');
   sentenceEl.innerHTML = '';
 
-  // 수식어 남은 개수 추적
-  let modCount = item.chunks.filter(c => !c.keep).length;
+  // chunks(기존) 또는 tokens(신규) 정규화
+  const chunks = item.chunks || item.tokens.map(t => ({
+    text: t.text,
+    role: t.role,
+    keep: t.role !== 'modifier'
+  }));
+  // 완성 뼈대 텍스트: result(기존) 또는 answer 배열 조합(신규)
+  const resultText = item.result || (item.answer ? item.answer.join(' ') : '');
 
-  item.chunks.forEach((chunk) => {
+  // 수식어 남은 개수 추적
+  let modCount = chunks.filter(c => !c.keep).length;
+
+  // 수식어가 없는 경우(모두 뼈대) 즉시 완료
+  if (modCount === 0) {
+    state.skeletonDone = true;
+    const resEl = $('skeleton-result');
+    resEl.textContent = resultText;
+    resEl.classList.add('show');
+    const guideEl = $('skeleton-guide');
+    guideEl.textContent = item.guide || '';
+    guideEl.classList.add('show');
+    const isLast = idx === items.length - 1;
+    $('skeleton-next-btn').textContent   = isLast ? '퀴즈로 →' : '다음 →';
+    $('skeleton-next-btn').style.display = 'flex';
+  }
+
+  chunks.forEach((chunk) => {
     const span = document.createElement('span');
     span.className = `sk-chunk role-${chunk.role}`;
     span.textContent = chunk.text;
@@ -491,10 +514,10 @@ function renderSkeleton() {
               sentenceEl.classList.add('complete');
               state.skeletonDone = true;
               const resEl = $('skeleton-result');
-              resEl.textContent = item.result;
+              resEl.textContent = resultText;
               resEl.classList.add('show');
               const guideEl = $('skeleton-guide');
-              guideEl.textContent = item.guide;
+              guideEl.textContent = item.guide || '';
               guideEl.classList.add('show');
               const isLast = idx === items.length - 1;
               $('skeleton-next-btn').textContent   = isLast ? '퀴즈로 →' : '다음 →';
@@ -545,12 +568,13 @@ function renderQuiz() {
     btn.addEventListener('click', () => {
       if (state.quizAnswered) return;
       state.quizAnswered = true;
-      const correct = i === q.ans;
+      const answerKey = q.ans ?? q.answer;          // UNIT1-3: ans, UNIT4-6: answer
+      const correct = i === answerKey;
       if (correct) state.quizScore++;
       // 정답/오답 표시
       opts.querySelectorAll('.quiz-opt').forEach((b, j) => {
         b.classList.add('disabled');
-        if (j === q.ans) b.classList.add('correct');
+        if (j === answerKey) b.classList.add('correct');
         else if (j === i && !correct) b.classList.add('wrong');
       });
       $('quiz-exp').textContent    = q.exp;
