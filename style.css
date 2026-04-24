@@ -249,8 +249,7 @@ body {
   font-size: .88rem;
   line-height: 1.75;
   color: var(--text);
-  font-family: Georgia, 'Times New Roman', serif;
-  font-style: italic;
+  font-family: inherit;
   background: var(--bg);
   border-radius: 10px;
   padding: 12px 14px;
