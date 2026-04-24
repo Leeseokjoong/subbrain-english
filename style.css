@@ -1106,7 +1106,6 @@ body {
   border-top: 1px solid var(--border);
   font-size: .84rem;
   color: var(--text-sub);
-  font-style: italic;
   line-height: 1.9;
   word-break: keep-all;
 }
