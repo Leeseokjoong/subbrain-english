@@ -246,6 +246,9 @@ function renderHome() {
 
   // UNIT 5 카드
   renderUnitBlock('uc5-fill', 'uc5-pct', 'lesson-list-5', UNIT5);
+
+  // UNIT 6 카드
+  renderUnitBlock('uc6-fill', 'uc6-pct', 'lesson-list-6', UNIT6);
 }
 
 // ══════════════════════════════════════════════════════════════
