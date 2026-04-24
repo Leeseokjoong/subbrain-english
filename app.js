@@ -70,6 +70,46 @@ const GLOSSARY = {
     dict: '목적보어(目的補語) — 5형식 문장에서 목적어의 상태나 성질을 보충 설명하는 성분.',
     easy: '목적어를 설명하는 보어. "우리는 부른다 그를 대장이라고" — "대장이라고"가 목적보어. 그 = 대장 관계가 성립합니다.',
   },
+  '준동사': {
+    dict: '준동사(準動詞) — 동사에서 파생되어 명사·형용사·부사로 기능하는 말. to부정사·동명사·분사가 해당.',
+    easy: '동사에 준하는 말. 동사에서 태어났지만 다른 역할을 맡은 것들. 준(準) = "에 준한다, 에 버금간다".',
+  },
+  '동명사': {
+    dict: '동명사(動名詞) — 동사원형에 -ing를 붙여 명사로 쓰는 형태. 주어·목적어·보어 자리에 위치.',
+    easy: '동사가 명사로 변신한 것. "Swimming is fun" — Swimming(수영하는 것)이 주어 자리에 앉았습니다.',
+  },
+  '분사구문': {
+    dict: '분사구문(分詞構文) — 분사(-ing 또는 p.p.)로 시작하는 절이 접속사절을 대신하여 부사적으로 쓰이는 구문.',
+    easy: '접속사절을 분사로 압축한 것. "Because she was tired, she slept" → "Being tired, she slept" 처럼 앞 절을 짧게 줄입니다.',
+  },
+  '관계대명사': {
+    dict: '관계대명사(關係代名詞) — 선행사(명사)를 수식하는 형용사절을 이끄는 대명사. who, whom, whose, which, that.',
+    easy: '대명사이면서 설명 문장을 이끄는 말. "the man who runs" — who는 man을 가리키면서 runs라는 설명을 붙여줍니다. 뒤에 불완전절이 옵니다.',
+  },
+  '관계부사': {
+    dict: '관계부사(關係副詞) — 선행사를 수식하는 절을 이끄는 부사. when(시간), where(장소), why(이유), how(방법).',
+    easy: '장소·시간·이유를 나타내며 명사를 꾸미는 말. "the place where I grew up" — where 뒤에는 완전한 절이 옵니다. 관계대명사와 달리 뒤 절이 완전합니다.',
+  },
+  '동격': {
+    dict: '동격(同格) — 같은 대상을 가리키는 두 명사(구)가 나란히 놓이는 구조. 콤마 동격과 that절 동격이 있음.',
+    easy: '명사 옆에 명사가 붙어 같은 것을 설명. "Darwin, a great scientist" — Darwin = a great scientist. 콤마 사이의 명사구가 앞 명사를 부연 설명합니다.',
+  },
+  '등위접속사': {
+    dict: '등위접속사(等位接續詞) — 문법적으로 대등한 단어·구·절을 연결하는 접속사. and/but/or/so/yet/for/nor.',
+    easy: '대등한 것들을 나란히 연결하는 말. "FANBOYS" — For·And·Nor·But·Or·Yet·So. 절과 절을 연결하면 뼈대가 두 개 생깁니다.',
+  },
+  '부사절': {
+    dict: '부사절(副詞節) — 접속사가 이끄는 절이 부사처럼 시간·조건·이유·양보를 나타내는 절.',
+    easy: '문장에 덧붙는 수식어 절. when/if/because/although로 시작하는 절이 주절을 꾸밉니다. 제거해도 주절 뼈대는 성립합니다.',
+  },
+  '명사절': {
+    dict: '명사절(名詞節) — 접속사(that/whether/의문사)가 이끄는 절이 명사처럼 주어·목적어·보어 역할을 하는 절.',
+    easy: '절 전체가 명사가 된 것. "I know [that she is right]" — [ ] 전체가 know의 목적어. 뼈대의 일부입니다.',
+  },
+  '접속부사': {
+    dict: '접속부사(接續副詞) — 두 문장 사이에서 논리적 흐름을 나타내는 부사. however·therefore·moreover·nevertheless 등.',
+    easy: '문장과 문장 사이의 논리 신호. however = 전환, therefore = 결론, moreover = 추가. 수능 비문학의 논리 흐름을 이 신호로 파악합니다.',
+  },
 };
 
 // 용어 자동 감지 — 긴 용어부터 처리해 중복 방지
@@ -200,6 +240,12 @@ function renderHome() {
 
   // UNIT 3 카드
   renderUnitBlock('uc3-fill', 'uc3-pct', 'lesson-list-3', UNIT3);
+
+  // UNIT 4 카드
+  renderUnitBlock('uc4-fill', 'uc4-pct', 'lesson-list-4', UNIT4);
+
+  // UNIT 5 카드
+  renderUnitBlock('uc5-fill', 'uc5-pct', 'lesson-list-5', UNIT5);
 }
 
 // ══════════════════════════════════════════════════════════════
