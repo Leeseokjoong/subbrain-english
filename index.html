@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>수브레인 영어</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="app">
+
+    <!-- ── 홈 화면 ── -->
+    <div id="screen-home" class="screen active">
+      <div class="home-header">
+        <div class="home-logo">수브레인 영어</div>
+      </div>
+      <div class="home-scroll">
+        <div class="home-greeting" id="home-greeting">안녕하세요.</div>
+        <div class="home-sub">오늘도 한 걸음 더 나아가요.</div>
+
+        <!-- 도전 지문 카드 -->
+        <div class="challenge-card" id="challenge-card">
+          <div class="cc-tag">목표 지문</div>
+          <div class="cc-sentence" id="cc-sentence"></div>
+          <div class="cc-question">이 문장, 지금 바로 해석할 수 있나요?</div>
+          <div class="cc-promise">이 과정을 마치면 이런 문장들을 스스로 읽게 됩니다.</div>
+        </div>
+
+        <div class="unit-card" id="unit-card">
+          <div class="uc-tag">UNIT 1</div>
+          <div class="uc-title">뼈대 찾기</div>
+          <div class="uc-sub">동사가 보이면 문장이 보인다</div>
+          <div class="uc-progress-wrap">
+            <div class="uc-progress-bar">
+              <div class="uc-progress-fill" id="uc-fill"></div>
+            </div>
+            <span class="uc-progress-pct" id="uc-pct">0%</span>
+          </div>
+          <div class="lesson-list" id="lesson-list"></div>
+        </div>
+
+        <div class="unit-card" id="unit2-card">
+          <div class="uc-tag">UNIT 2</div>
+          <div class="uc-title">동사의 변신은 무죄</div>
+          <div class="uc-sub">형태가 달라져도 동사는 동사다</div>
+          <div class="uc-progress-wrap">
+            <div class="uc-progress-bar">
+              <div class="uc-progress-fill" id="uc2-fill"></div>
+            </div>
+            <span class="uc-progress-pct" id="uc2-pct">0%</span>
+          </div>
+          <div class="lesson-list" id="lesson-list-2"></div>
+        </div>
+
+        <div class="coming-soon-card">
+          <div class="cs-tag">UNIT 3</div>
+          <div class="cs-title">명사를 꾸미는 말들</div>
+          <div class="cs-sub">형용사 · 분사 · 관계사</div>
+          <div class="cs-badge">준비 중</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── 어휘 화면 ── -->
+    <div id="screen-vocab" class="screen">
+      <div class="lesson-topbar">
+        <button class="back-btn" id="vocab-back">←</button>
+        <div class="lt-label" id="vocab-lesson-label"></div>
+        <div class="lt-step">단어 학습</div>
+      </div>
+      <div class="vocab-intro">
+        <div class="vi-title">이 레슨의 핵심 단어</div>
+        <div class="vi-sub">알아두면 훨씬 쉬워져요.</div>
+      </div>
+      <div class="flip-area">
+        <div class="flip-card" id="flip-card">
+          <div class="flip-front">
+            <div class="flip-word" id="flip-word"></div>
+            <div class="flip-hint">탭해서 뜻 보기</div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-meaning" id="flip-meaning"></div>
+            <div class="flip-example" id="flip-example"></div>
+          </div>
+        </div>
+        <div class="flip-dots" id="flip-dots"></div>
+      </div>
+      <div class="vocab-nav">
+        <button class="vn-btn" id="vocab-prev">←</button>
+        <div class="vn-count" id="vocab-count"></div>
+        <button class="vn-btn" id="vocab-next">→</button>
+      </div>
+      <button class="btn-primary full-btn" id="vocab-start-btn">학습 시작 →</button>
+    </div>
+
+    <!-- ── 스텝 화면 ── -->
+    <div id="screen-steps" class="screen">
+      <div class="lesson-topbar">
+        <button class="back-btn" id="steps-back">←</button>
+        <div class="lt-label" id="steps-lesson-label"></div>
+        <div class="lt-step" id="steps-progress-label"></div>
+      </div>
+      <div class="step-area" id="step-area">
+        <div class="step-card" id="step-card">
+          <div class="step-body" id="step-body"></div>
+        </div>
+        <div class="step-dots" id="step-dots"></div>
+        <div class="step-hint-txt">탭하면 다음으로 →</div>
+      </div>
+      <div class="step-footer-bar">
+        <div class="sfb-progress">
+          <div class="sfb-fill" id="sfb-fill"></div>
+        </div>
+        <button class="btn-ghost step-summary-btn" id="step-summary-btn" style="display:none">
+          연습 문제로 →
+        </button>
+      </div>
+    </div>
+
+    <!-- ── 문장 분해 화면 ── -->
+    <div id="screen-dissect" class="screen">
+      <div class="lesson-topbar">
+        <button class="back-btn" id="dissect-back">←</button>
+        <div class="lt-label" id="dissect-lesson-label"></div>
+        <div class="lt-step" id="dissect-progress-label"></div>
+      </div>
+      <div class="dissect-wrap">
+        <div class="dissect-task" id="dissect-task"></div>
+        <div class="dissect-sentence" id="dissect-sentence"></div>
+        <div class="dissect-feedback" id="dissect-feedback" style="display:none"></div>
+        <div class="form-opts" id="form-opts" style="display:none"></div>
+      </div>
+      <button class="btn-primary full-btn" id="dissect-next-btn" style="display:none">
+        다음 →
+      </button>
+    </div>
+
+    <!-- ── 뼈대 남기기 화면 ── -->
+    <div id="screen-skeleton" class="screen">
+      <div class="lesson-topbar">
+        <button class="back-btn" id="skeleton-back">←</button>
+        <div class="lt-label" id="skeleton-lesson-label"></div>
+        <div class="lt-step" id="skeleton-progress-label"></div>
+      </div>
+      <div class="skeleton-wrap">
+        <div class="skeleton-task" id="skeleton-task">수식어(양념)를 탭해서 제거하세요</div>
+        <div class="skeleton-sentence" id="skeleton-sentence"></div>
+        <div class="skeleton-result" id="skeleton-result"></div>
+        <div class="skeleton-guide" id="skeleton-guide"></div>
+      </div>
+      <button class="btn-primary full-btn" id="skeleton-next-btn" style="display:none">
+        다음 →
+      </button>
+    </div>
+
+    <!-- ── 퀴즈 화면 ── -->
+    <div id="screen-quiz" class="screen">
+      <div class="lesson-topbar">
+        <button class="back-btn" id="quiz-back">←</button>
+        <div class="lt-label" id="quiz-lesson-label"></div>
+        <div class="lt-step" id="quiz-progress-label"></div>
+      </div>
+      <div class="quiz-wrap">
+        <div class="quiz-prog-bar">
+          <div class="quiz-prog-fill" id="quiz-prog-fill"></div>
+        </div>
+        <div class="quiz-card">
+          <div class="quiz-q" id="quiz-q"></div>
+          <div class="quiz-opts" id="quiz-opts"></div>
+          <div class="quiz-exp" id="quiz-exp" style="display:none"></div>
+        </div>
+      </div>
+      <button class="btn-primary full-btn" id="quiz-next-btn" style="display:none">
+        다음 문제 →
+      </button>
+    </div>
+
+    <!-- ── 에필로그 화면 ── -->
+    <div id="screen-epilogue" class="screen">
+      <div class="epilogue-wrap">
+        <div class="ep-chapter">마치며</div>
+
+        <p class="ep-para">이제 당신은 긴 영어 문장을 보면 예전과 다르게 보일 겁니다. 수식어들이 눈에 들어오고, 그 안에 숨은 뼈대가 보이기 시작하죠.</p>
+
+        <p class="ep-para">그런데 한 가지 흥미로운 사실이 있습니다. 이 능력은 영어에만 통하지 않습니다. 한국어로 된 어려운 글, 복잡하게 얽힌 논문, 겹겹이 수식이 붙은 신문 기사 — 그것들도 같은 방식으로 읽힙니다.</p>
+
+        <p class="ep-para">미국에서 태어나고 자란 사람도 복잡한 영문 계약서나 철학 문헌을 보면 손을 놓습니다. 그건 영어가 부족해서가 아니라 그 글에 담긴 개념을 아직 마주하지 않았기 때문입니다. 언어의 장벽이 아니라 사유의 깊이 문제입니다.</p>
+
+        <p class="ep-para">단어는 단순한 기호가 아닙니다. 하나의 단어 안에는 그 언어를 써온 사람들의 경험과 사상이 응축되어 있습니다. 어휘를 넓힌다는 건 내가 느낄 수 있는 감정의 폭을 넓히는 일입니다.</p>
+
+        <p class="ep-para">자신의 마음을 표현할 말이 없을 때 사람은 답답해집니다. 그 답답함이 목소리를 높이게 하고, 때로는 언어를 거칠게 만듭니다. 반대로 정확한 말 하나를 찾았을 때의 그 해방감 — 그것이 언어를 배우는 이유입니다.</p>
+
+        <p class="ep-last">이 공부가 영어를 위한 것만은 아닙니다.<br>나를 더 잘 표현하고, 더 넓게 읽고,<br>더 깊이 생각하기 위한 연습입니다.</p>
+
+        <button class="btn-ghost ep-home-btn" id="ep-home-btn">홈으로 돌아가기</button>
+      </div>
+    </div>
+
+    <!-- ── 결과 화면 ── -->
+    <div id="screen-result" class="screen">
+      <div class="result-wrap">
+        <div class="result-score-big" id="result-score-big">4 / 4</div>
+        <div class="result-title" id="result-title">레슨 완료</div>
+        <div class="result-msg" id="result-msg"></div>
+        <button class="btn-primary" id="result-next-btn">다음 레슨 →</button>
+        <button class="btn-ghost" id="result-epilogue-btn" style="display:none">마치며 →</button>
+        <button class="btn-ghost" id="result-home-btn">홈으로</button>
+      </div>
+    </div>
+
+  </div><!-- /#app -->
+
+  <!-- ── 하단 탭바 ── -->
+  <nav class="tab-bar">
+    <button class="tab-btn active" data-screen="home">
+      <span class="tab-label">홈</span>
+    </button>
+    <button class="tab-btn" data-screen="progress">
+      <span class="tab-label">진도</span>
+    </button>
+  </nav>
+
+  <!-- ── 용어 정의 카드 ── -->
+  <div id="term-overlay" class="term-overlay" style="display:none">
+    <div id="term-card" class="term-card">
+      <div class="tc-head">
+        <div class="tc-term" id="tc-term"></div>
+        <button class="tc-close" id="tc-close">✕</button>
+      </div>
+      <div class="tc-dict" id="tc-dict"></div>
+      <div class="tc-divider"></div>
+      <div class="tc-label">쉽게 말하면</div>
+      <div class="tc-easy" id="tc-easy"></div>
+    </div>
+  </div>
+
+  <script src="data/unit1.js"></script>
+  <script src="data/unit2.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

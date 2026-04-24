@@ -1,0 +1,12 @@
+# 시스템
+.DS_Store
+Thumbs.db
+
+# 에디터
+.vscode/
+.idea/
+
+# Firebase (나중에 배포 시 생성되는 파일들)
+.firebase/
+firebase-debug.log
+firestore-debug.log
